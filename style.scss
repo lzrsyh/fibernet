@@ -1,0 +1,1241 @@
+@font-face {
+    font-family: openSans;
+    src: url(/assets/font/OpenSans-Regular.ttf);
+}
+
+@mixin responsive($breakpoint) {
+    @if $breakpoint==smartphone-portrait {
+        @media only screen and (min-width: 319.98px) {
+            @content;
+        }
+    }
+
+    // @if $breakpoint==smartphone-landscape {
+    //     @media only screen and (max-width: 575.99px) and (max-width: 767.98px) {
+    //         @content;
+    //     }
+    // }
+
+    @if $breakpoint==tablet {
+        @media only screen and (min-width: 767.99px) and (max-width: 1023.97px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint==laptop {
+        @media only screen and (min-width: 1023.98px) and (max-width: 1399.98px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint==desktop {
+        @media only screen and (min-width: 1399.99px) {
+            @content;
+        }
+    }
+}
+
+:root {
+    --clr-neutral-900: #252525;
+    --clr-neutral-600: #444444;
+    --clr-neutral-100: #ffffff;
+    --clr-primary: #ed1e79;
+    --clr-secondary: #1b1464;
+
+    --gr-model-01: linear-gradient(-60deg, var(--clr-primary), var(--clr-secondary) 70%);
+    --gr-model-02: linear-gradient(-120deg, var(--clr-primary), var(--clr-secondary) 70%);
+    --gr-model-03: linear-gradient(60deg, var(--clr-primary), var(--clr-secondary) 70%);
+    --gr-model-04: linear-gradient(120deg, var(--clr-primary), var(--clr-secondary) 70%);
+
+    --padding-small: .5em;
+    --padding-medium: 3em;
+    --padding-large: 5em;
+    --padding-xlarge: 10em;
+}
+
+*,
+::before,
+::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    color: #252525;
+
+    font-family: openSans, arial, sans-serif;
+
+    scroll-behavior: smooth;
+}
+
+.content-container {
+    max-width: 1440px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+
+    position: relative;
+    box-sizing: border-box;
+}
+
+// global use
+
+.text-light {
+    color: var(--clr-neutral-100);
+}
+
+.text-dark {
+    color: var(--clr-neutral-900);
+}
+
+.text-secondary {
+    color: var(--clr-neutral-600);
+}
+
+.content-container {
+    max-width: 1440px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+
+    position: relative;
+    box-sizing: border-box;
+}
+
+.bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 2em;
+
+    &--hero,
+    &--first,
+    &--second,
+    &--third,
+    &--footer {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+    }
+
+    &--model-01 {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        inset: 0;
+        background: var(--gr-model-01);
+        opacity: .85;
+    }
+
+    &--model-02 {
+        content: '';
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        inset: 0;
+        background: var(--gr-model-02);
+        opacity: .85;
+    }
+
+    &--model-03 {
+        content: '';
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        inset: 0;
+        background: var(--gr-model-03);
+        opacity: .85;
+    }
+
+    &--model-04 {
+        content: '';
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        inset: 0;
+        background: var(--gr-model-04);
+        opacity: .85;
+    }
+}
+
+.button {
+    width: max-content;
+    max-width: 15em;
+    min-width: 10em;
+    height: max-content;
+    padding: .5em;
+
+    display: block;
+
+    border: .15em solid var(--clr-neutral-100);
+    border-radius: 2em;
+
+    text-align: center;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-weight: 600;
+
+    color: var(--clr-neutral-100);
+    background-color: transparent;
+
+    transition: .3s all ease-in-out;
+
+    &:hover {
+        color: var(--clr-neutral-900);
+        background-color: var(--clr-neutral-100);
+    }
+}
+
+@mixin card-control ($direction, $display, $gap) {
+    display: $display;
+    gap: $gap;
+    align-items: center;
+    flex-direction: $direction;
+    position: relative;
+}
+
+ul {
+    padding-inline-start: 2ch;
+}
+
+.title {
+    text-transform: uppercase;
+}
+
+.title-big {
+    text-transform: uppercase;
+    font-size: 2em;
+}
+
+.subTitle {
+    width: 30ch;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.center {
+    align-items: center;
+    text-align: center;
+}
+
+// global use end
+
+.bg {
+    @include responsive(smartphone-portrait) {
+        border-radius: 1em;
+    }
+}
+
+.header {
+    @include responsive(smartphone-portrait) {
+        width: 100%;
+        height: 4em;
+        padding: 0 var(--padding-small);
+
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        background-color: var(--clr-neutral-100);
+        transition: .3s ease-in-out;
+    }
+
+    @include responsive(tablet) {
+        padding: 0 var(--padding-medium);
+    }
+
+    @include responsive(laptop) {
+        padding: 0 var(--padding-medium);
+    }
+
+    @include responsive(desktop) {
+        padding: 0 var(--padding-medium);
+    }
+
+    &-logo {
+        @include responsive(smartphone-portrait) {
+            width: 10em;
+        }
+    }
+
+    &-nav {
+        @include responsive(smartphone-portrait) {
+            width: 80%;
+            height: 100vh;
+            inset: 0;
+            left: -100%;
+
+            display: flex;
+            background-color: var(--clr-neutral-100);
+            position: fixed;
+            isolation: isolate;
+            z-index: 1;
+            transition: .5s ease-in-out;
+        }
+
+        @include responsive(tablet) {
+            width: 100%;
+            height: 100%;
+            position: relative;
+
+            display: flex;
+            left: 0;
+            background-color: var(--clr-neutral-100);
+
+            transition: none;
+        }
+
+        @include responsive(laptop) {
+            width: 100%;
+            height: 100%;
+            position: relative;
+
+            display: flex;
+            left: 0;
+            background-color: var(--clr-neutral-100);
+            transition: none;
+        }
+
+        @include responsive(desktop) {
+            width: 100%;
+            height: 100%;
+            position: relative;
+
+            display: flex;
+            left: 0;
+            background-color: var(--clr-neutral-100);
+            transition: none;
+        }
+
+        &.active {
+            @include responsive(smartphone-portrait) {
+                left: 0;
+            }
+
+
+
+            &::before {
+                @include responsive(smartphone-portrait) {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 100%;
+                    width: 200%;
+                    height: 100%;
+                    background-color: rgb(0 0 0 / .5);
+                    z-index: -1;
+                    box-sizing: border-box;
+                    transition: .5s ease-in-out;
+                }
+            }
+        }
+
+        &::after {
+            @include responsive(smartphone-portrait) {
+                content: '';
+                position: absolute;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+
+        }
+
+        @include responsive(tablet) {
+            display: flex;
+        }
+
+        @include responsive(laptop) {
+            display: flex;
+        }
+
+        @include responsive(desktop) {
+            display: flex;
+        }
+
+        ul {
+            @include responsive(smartphone-portrait) {
+                width: 100%;
+                padding: 1em;
+
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: .5em;
+
+                list-style: none;
+            }
+
+            @include responsive(tablet) {
+                width: 100%;
+                flex-direction: row;
+                align-items: center;
+                text-align: center;
+                padding: 0;
+                justify-content: flex-end;
+            }
+
+            @include responsive(laptop) {
+                width: 100%;
+                flex-direction: row;
+                align-items: center;
+                text-align: center;
+                padding: 0;
+                justify-content: flex-end;
+            }
+
+            @include responsive(desktop) {
+                flex-direction: row;
+                align-items: center;
+                text-align: center;
+                padding: 0;
+                justify-content: flex-end;
+            }
+
+            li {
+                @include responsive(smartphone-portrait) {
+                    width: 100%;
+                }
+
+                @include responsive(tablet) {
+                    width: max-content;
+                }
+
+                @include responsive(laptop) {
+                    width: max-content;
+                }
+
+                @include responsive(desktop) {
+                    width: max-content;
+                }
+            }
+
+            .row {
+                @include responsive(smartphone-portrait) {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .header-logo {
+                    @include responsive(tablet) {
+                        display: none;
+                    }
+
+                    @include responsive(laptop) {
+                        display: none;
+                    }
+
+                    @include responsive(desktop) {
+                        display: none;
+                    }
+                }
+            }
+
+            .nav-link {
+                @include responsive(smartphone-portrait) {
+                    width: 100%;
+                    height: max-content;
+                    padding: .5em;
+                    display: block;
+
+                    font-weight: 600;
+                    text-decoration: none;
+                    text-transform: capitalize;
+
+                    border-radius: .3em;
+
+                    transition: .3s all ease-in-out;
+
+                    font-size: 1.2rem;
+                }
+
+                @include responsive(tablet) {
+                    font-size: 1rem;
+                }
+
+                @include responsive(laptop) {
+                    font-size: 1rem;
+                }
+
+                @include responsive(desktop) {
+                    font-size: 1rem;
+                }
+
+                &:hover {
+                    color: var(--clr-neutral-100);
+                    background-color: var(--clr-primary);
+                }
+            }
+        }
+    }
+}
+
+.hamburger {
+    @include responsive(smartphone-portrait) {
+        width: 2em;
+        height: 2em;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    @include responsive(tablet) {
+        display: none;
+    }
+
+    @include responsive(laptop) {
+        display: none;
+    }
+
+    @include responsive(desktop) {
+        display: none;
+    }
+
+    &-line {
+        @include responsive(smartphone-portrait) {
+            width: 100%;
+            height: .2em;
+            background-color: var(--clr-neutral-900);
+            border-radius: .3em;
+            position: relative;
+        }
+
+        &::before,
+        &::after {
+            content: '';
+            inset: 0;
+            position: absolute;
+            width: 100%;
+            border-radius: .3em;
+            height: .2em;
+            background-color: var(--clr-neutral-900);
+            display: block;
+        }
+
+        &::before {
+            transform: translateY(-.5em);
+        }
+
+        &::after {
+            transform: translateY(.5em);
+        }
+    }
+}
+
+.close {
+    @include responsive(smartphone-portrait) {
+        width: 2em;
+        height: 2em;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        z-index: 1;
+        background-color: var(--clr-neutral-100);
+    }
+
+    @include responsive(tablet) {
+        display: none;
+    }
+
+    @include responsive(laptop) {
+        display: none;
+    }
+
+    @include responsive(desktop) {
+        display: none;
+    }
+
+    &-line {
+        @include responsive(smartphone-portrait) {
+            width: 100%;
+            height: .2em;
+            border-radius: .3em;
+            position: relative;
+            display: block;
+        }
+
+        &::before,
+        &::after {
+            content: '';
+            inset: 0;
+            position: absolute;
+            width: 100%;
+            height: .2em;
+            border-radius: .3em;
+            display: block;
+            background-color: var(--clr-neutral-900);
+        }
+
+        &::before {
+            transform: translateY(-.5em);
+            transform: rotate(-45deg);
+        }
+
+        &::after {
+            transform: translateY(.5em);
+            transform: rotate(45deg);
+        }
+    }
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+}
+
+.hero {
+    @include responsive(smartphone-portrait) {
+        width: 100%;
+        height: 100vh;
+        padding: var(--padding-small);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    @include responsive(tablet) {
+        padding: var(--padding-medium);
+    }
+
+    @include responsive(laptop) {
+        padding: var(--padding-large);
+    }
+
+    @include responsive(desktop) {
+        padding: var(--padding-xlarge);
+    }
+
+    &-title {
+        @include responsive(smartphone-portrait) {
+            width: 20ch;
+
+            font-size: 2em;
+            font-weight: 800;
+            text-align: center;
+            text-transform: capitalize;
+        }
+
+        @include responsive(tablet) {
+            width: 25ch;
+            font-size: 2em;
+        }
+
+        @include responsive(laptop) {
+            width: 25ch;
+            font-size: 3em;
+        }
+
+        @include responsive(desktop) {
+            width: 25ch;
+            font-size: 4em;
+        }
+    }
+
+    &-subTitle {
+        @include responsive(smartphone-portrait) {
+            width: 30ch;
+            text-align: center;
+        }
+
+        @include responsive(tablet) {
+            width: 50ch;
+        }
+
+        @include responsive(laptop) {
+            width: 50ch;
+        }
+
+        @include responsive(desktop) {
+            width: 50ch;
+        }
+
+    }
+
+    .bg {
+        border-radius: 0;
+    }
+}
+
+.service {
+    @include responsive(smartphone-portrait) {
+        width: 100%;
+        height: 100%;
+        padding: 2em var(--padding-small);
+
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2em;
+    }
+
+    @include responsive(tablet) {
+        padding: 2em var(--padding-medium);
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include responsive(laptop) {
+        padding: 2em var(--padding-large);
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include responsive(desktop) {
+        padding: 2em var(--padding-xlarge);
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+        @include responsive(smartphone-portrait) {
+            @include card-control(column, flex, 1em);
+            text-align: center;
+        }
+
+        &--image img {
+            @include responsive(smartphone-portrait) {
+                width: 10em;
+            }
+
+            @include responsive(laptop) {
+                width: 15em;
+            }
+
+            @include responsive(desktop) {
+                width: 20em;
+            }
+        }
+
+        .title {
+            @include responsive(tablet) {
+                font-size: 1rem;
+            }
+        }
+
+        .content {
+            @include responsive(tablet) {
+                font-size: .9rem;
+            }
+        }
+    }
+}
+
+.benefit {
+    @include responsive(smartphone-portrait) {
+        width: 100%;
+        height: 100%;
+        padding: 1em var(--padding-small);
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+    }
+
+    @include responsive(tablet) {
+        padding: 1em var(--padding-medium);
+    }
+
+    @include responsive(laptop) {
+        padding: 1em var(--padding-large);
+    }
+
+    @include responsive(desktop) {
+        padding: 1em var(--padding-xlarge);
+    }
+
+    .--container {
+        @include responsive(smartphone-portrait) {
+            width: 100%;
+            height: 100%;
+            padding: 2em;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 2em;
+            align-items: center;
+        }
+
+        &:nth-child(1) {
+            .card {
+                @include responsive(smartphone-portrait) {
+                    @include card-control(column, flex, 1em);
+                }
+
+                @include responsive(tablet) {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 2em;
+                }
+
+                @include responsive(laptop) {
+                    width: 100%;
+                    height: 100%;
+                    padding: 3em;
+                    display: flex;
+                    justify-content: space-between;
+                    flex-direction: row;
+                }
+
+                @include responsive(desktop) {
+                    width: 100%;
+                    height: 100%;
+                    padding: 3em;
+                    display: flex;
+                    justify-content: space-between;
+                    flex-direction: row;
+                }
+
+                &:nth-child(3) {
+                    @include responsive(laptop) {
+                        flex-direction: row-reverse;
+                    }
+
+                    @include responsive(desktop) {
+                        flex-direction: row-reverse;
+                    }
+                }
+
+                &--image {
+                    @include responsive(smartphone-portrait) {
+                        display: none;
+                    }
+
+                    @include responsive(laptop) {
+                        width: 30em;
+                        display: flex;
+                    }
+
+                    @include responsive(desktop) {
+                        width: 100em;
+                        display: flex;
+                    }
+
+                    img {
+                        @include responsive(laptop) {
+                            width: 30em;
+                            display: flex;
+                        }
+                    }
+                }
+            }
+        }
+
+        &:nth-child(2) {
+            .card {
+                @include responsive(smartphone-portrait) {
+                    @include card-control(column, flex, 1em);
+                }
+
+                @include responsive(laptop) {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                @include responsive(desktop) {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                &--reversed {
+                    .card--image {
+                        @include responsive(laptop) {
+                            order: 2;
+                        }
+
+                        @include responsive(desktop) {
+                            order: 2;
+                        }
+                    }
+                }
+
+                &--image {
+                    @include responsive(smartphone-portrait) {
+                        min-width: 10em;
+                        width: 100%;
+                        min-height: 15em;
+                        height: 10em;
+                        overflow: hidden;
+                        border-radius: .5em;
+                    }
+
+                    @include responsive(tablet) {
+                        min-height: 20em;
+                    }
+
+                    @include responsive(laptop) {
+                        min-height: 15em;
+                    }
+
+                    @include responsive(desktop) {
+                        min-height: 20em;
+                    }
+
+                    img {
+                        @include responsive(smartphone-portrait) {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+                }
+            }
+        }
+
+        &:nth-child(3) {
+            @include responsive(smartphone-portrait) {
+                padding: 0;
+                gap: 2em;
+            }
+
+            .card {
+                @include responsive(smartphone-portrait) {
+                    @include card-control(unset, grid, 2em);
+                    grid-template-columns: 1fr;
+                }
+
+                @include responsive(laptop) {
+                    @include card-control(unset, grid, 2em);
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                @include responsive(desktop) {
+                    @include card-control(unset, grid, 2em);
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                &--internal {
+                    @include responsive(smartphone-portrait) {
+                        width: 100%;
+                        height: 100%;
+                        padding: 2em;
+                        gap: 2em;
+                        border-radius: 1em;
+                        overflow: hidden;
+                        justify-content: space-between;
+                    }
+
+                    @include responsive(laptop) {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: unset;
+                    }
+
+                    @include responsive(desktop) {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: unset;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.product {
+    @include responsive(smartphone-portrait) {
+        width: 100%;
+        height: 100%;
+        padding: 1em var(--padding-small);
+    }
+
+    @include responsive(tablet) {
+        padding: 1em var(--padding-medium);
+    }
+
+    @include responsive(laptop) {
+        padding: 1em var(--padding-large);
+    }
+
+    @include responsive(desktop) {
+        padding: 1em var(--padding-xlarge);
+    }
+
+    .card {
+        @include responsive(smartphone-portrait) {
+            @include card-control(column, flex, 2em);
+            overflow: hidden;
+            border-radius: 1em;
+            padding: 2em;
+        }
+
+        &--internal {
+            @include responsive(smartphone-portrait) {
+                width: 100%;
+                height: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                row-gap: 2em;
+                column-gap: .5em;
+                justify-content: center;
+            }
+
+            @include responsive(tablet) {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            @include responsive(laptop) {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            @include responsive(desktop) {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        &--btn {
+            @include responsive(smartphone-portrait) {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 1em;
+            }
+
+            @include responsive(tablet) {
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+
+            @include responsive(laptop) {
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+
+            @include responsive(desktop) {
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+        }
+    }
+}
+
+.terms--container {
+    @include responsive(smartphone-portrait) {
+        padding-top: 5em;
+    }
+
+    @include responsive(tablet) {
+        padding-top: 5em;
+    }
+
+    @include responsive(laptop) {
+        width: 100%;
+        height: 100%;
+        padding-top: 5em;
+    }
+
+    @include responsive(desktop) {}
+
+    .card {
+
+        &--terms {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1em;
+
+            .title-top {
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .subTitle {
+                width: 40ch;
+            }
+        }
+    }
+}
+
+.partner {
+    @include responsive(smartphone-portrait) {
+        width: 100%;
+        height: 100%;
+        padding: 1em var(--padding-small);
+    }
+
+    @include responsive(tablet) {
+        padding: 1em var(--padding-medium);
+    }
+
+    .card {
+        @include responsive(smartphone-portrait) {
+            @include card-control(row, flex, 1em);
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            padding: 1em;
+        }
+
+        &--image {
+            @include responsive(smartphone-portrait) {
+                width: 5em;
+                height: 5em;
+                overflow: hidden;
+            }
+
+            @include responsive(tablet) {
+                width: 10em;
+                height: 10em;
+                overflow: hidden;
+            }
+
+            img {
+                @include responsive(smartphone-portrait) {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    scale: 1.1;
+                }
+            }
+        }
+    }
+}
+
+.customer {
+    @include responsive(smartphone-portrait) {
+        width: 100%;
+        height: 100%;
+        padding: 1em var(--padding-small);
+    }
+
+    @include responsive(tablet) {
+        padding: 1em var(--padding-medium);
+    }
+
+    .card {
+        @include responsive(smartphone-portrait) {
+            @include card-control(row, flex, 1em);
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            padding: 1em;
+        }
+
+        &--image {
+            @include responsive(smartphone-portrait) {
+                width: 5em;
+                height: 5em;
+                overflow: hidden;
+            }
+
+            @include responsive(tablet) {
+                width: 10em;
+                height: 10em;
+            }
+
+            img {
+                @include responsive(smartphone-portrait) {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    scale: 1.1;
+                }
+            }
+        }
+    }
+}
+
+.footer {
+    .bg {
+        border-radius: 0;
+    }
+
+    @include responsive(smartphone-portrait) {
+        width: 100%;
+        height: 100%;
+        padding: 1em var(--padding-small);
+        position: relative;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card {
+        @include responsive(smartphone-portrait) {
+            @include card-control(column, flex, 1em);
+            align-items: center;
+        }
+
+        .email {
+            text-transform: capitalize;
+        }
+
+        .title {
+            @include responsive(smartphone-portrait) {
+                width: 30ch;
+                text-align: center;
+            }
+
+            @include responsive(laptop) {
+                width: 50ch;
+                text-align: center;
+            }
+        }
+
+        &--internal {
+            @include responsive(smartphone-portrait) {
+                @include card-control(column, flex, 1em);
+                align-items: center;
+            }
+
+            .input {
+                @include responsive(smartphone-portrait) {
+                    min-width: 20em;
+                    max-width: 100%;
+                    padding: 1em;
+                    display: block;
+                    border: none;
+                    border-radius: .5em;
+                    background-color: var(--clr-neutral-100);
+                }
+
+                @include responsive(tablet) {
+                    min-width: 25em;
+                }
+
+                @include responsive(laptop) {
+                    min-width: 50em;
+                }
+            }
+        }
+
+        &--contact {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1em;
+
+            .icon img {
+                width: 2em;
+                height: 2em;
+                color: var(--clr-neutral-100);
+            }
+        }
+    }
+}
